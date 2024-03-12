@@ -6,11 +6,18 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
+import { useConfigStore } from '../store/useConfigStore'
+
+const { config } = useConfigStore()
 
 onMounted(() => {
   const constraints = {
     audio: false,
-    video: true
+    video: {
+      deviceId: config.deviceId,
+      width: 1920,
+      height: 100
+    }
   } as MediaStreamConstraints
 
   const video = document.querySelector('video')!
