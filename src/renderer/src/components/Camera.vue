@@ -1,6 +1,9 @@
 <template>
-  <main class="w-screen h-screen overflow-hidden">
-    <video class="bg-red-500 object-cover h-full"></video>
+  <main class="w-screen h-screen overflow-hidden" :class="{ 'rounded-full': config.rounded }">
+    <video
+      class="bg-red-500 object-cover h-full"
+      :class="{ 'rounded-full': config.rounded }"
+    ></video>
   </main>
 </template>
 

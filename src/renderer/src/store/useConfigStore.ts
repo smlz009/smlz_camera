@@ -6,7 +6,8 @@ export const useConfigStore = defineStore(
   () => {
     const config = ref({
       page: 'camera',
-      deviceId: ''
+      deviceId: '',
+      rounded: false
     })
 
     const updateConfig = () => {}

@@ -2,6 +2,8 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import './ipcMain'
+import { createTray } from './tray'
 
 function createWindow(): void {
   // Create the browser window.
@@ -16,6 +18,8 @@ function createWindow(): void {
     maxWidth: 500,
     maxHeight: 500,
     frame: false,
+    skipTaskbar: false,
+    transparent: true,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
@@ -23,7 +27,8 @@ function createWindow(): void {
       sandbox: false
     }
   })
-  mainWindow.webContents.openDevTools()
+  if (is.dev) mainWindow.webContents.openDevTools()
+
   mainWindow.setAspectRatio(1)
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
@@ -61,6 +66,8 @@ app.whenReady().then(() => {
   ipcMain.on('ping', () => console.log('pong'))
 
   createWindow()
+  //图标
+  createTray()
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
